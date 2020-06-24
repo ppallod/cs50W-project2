@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}
+    Signup
+{% endblock %}
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                <h5 class="card-title text-center">Sign Up</h5>
+                <form class="form-signin" action= "/signup" method="POST">
+                    <div class="form-label-group">
+                        <input name = "email" type="text" id="inputEmail" class="form-control" placeholder="Email Address" style="margin-bottom: 20px;" maxlength="25" required>
+                    </div>
+
+                    <div class="form-label-group">
+                        <input name = "username" type="text" id="inputEmail" class="form-control" placeholder="Username" style="margin-bottom: 20px;" maxlength="20" required>
+                    </div>
+
+                    <div class="form-label-group">
+                        <input  name = "password" type="password" id="inputPassword" class="form-control" placeholder="Password" style="margin-bottom: 20px;" maxlength="25" required>
+                    </div>
+
+                    <div class="form-label-group">
+                        <input  name = "displayname" type="text" id="inputPassword" class="form-control" placeholder="Displayname" style="margin-bottom: 20px;" maxlength="10" required>
+                    </div>
+
+                    <hr class="my-4">                    
+                    <button class="btn btn-block btn-dark" type="submit">Register</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}

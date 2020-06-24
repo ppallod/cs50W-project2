@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Channel
+{% endblock %}
+
+{% block body %}
+    <script>
+        // Material Select Initialization
+        $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+        });
+    </script>
+
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+    <h3 class="heading" style="text-align: center; padding-top:40px">Create Channel</h3>
+    <button class="btn btn-dark" type="submit" name="logout" style="margin-left: 90%;"><a href="{{url_for('logout')}}" style="color: aliceblue;">Log Out</a></button>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+            <div class="card-body">
+            <h5 class="card-title text-center">Channel Details</h5>
+            <form class="form-signin" action= "/create_channel" method="POST">
+                <div class="form-label-group">
+                    <input name = "channelname" type="text" id="inputEmail" class="form-control" placeholder="Channel Name" style="margin-bottom: 20px;" required>
+                </div>
+                <hr>
+                <div class="list-group" style="padding-bottom: 40px;">
+                    <select multiple name = "users">
+                        <option value="" disabled selected>Select Users</option>
+                        {% for user in users %}
+                            <option value="{{user.id}}">{{user.displayname}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                  <hr class="my-4"> 
+                <button class="btn btn-block btn-dark" type="submit" formmethod="post">Create Channel</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>    
+{% endblock %}

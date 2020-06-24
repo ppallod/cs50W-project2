@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+    <h1 style="margin-left: 5%;">{{page_title}}</h1>
+    <p style="margin-left: 5%;">
+        {{message}}
+    </p>
+    <form class="form" action="{{route_link}}" method="GET">
+        <button class="btn btn-dark" type="submit" style="margin-left: 5%;">{{button_name}}</button>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+    Join Channel
+{% endblock %}
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+    <h2 class="heading" style="text-align: left; padding:40px">Hello, {{displayname}}!</h2>
+    <div>
+        <button class="btn btn-dark" type="submit" name="logout" style="margin-left: 90%;"><a href="{{url_for('logout')}}" style="color: aliceblue;">Log Out</a></button>
+    </div>
+    <div class="container">
+        <h3>Join Channel</h3>
+        <div class="list-group" style="padding-top: 20px;">
+            <form id = "channelform" action = '/joinchannel' method="POST">
+                {% for channel in channels %}
+                    <input name=id type="hidden" value="{{channel.id}}"><a class="list-group-item list-group-item-action" onclick="document.querySelector('#channelform').submit()">{{channel.name}}</a>
+                {% endfor %}
+            </form>
+          </div>
+          <hr>
+{% endblock %}

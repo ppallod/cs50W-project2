@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}
+    Channels
+{% endblock %}
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+    <h2 class="heading" style="text-align: left; padding:40px">Hello, {{displayname}}!</h2>
+    <div style="text-align: right;">
+        <button class="btn btn-dark" type="submit" name="profile"><a href="{{url_for('myprofile')}}" style="color: aliceblue;">My Profile</a></button>
+        <button class="btn btn-dark" type="submit" name="logout" ><a href="{{url_for('logout')}}" style="color: aliceblue;">Log Out</a></button>
+
+    </div>
+    <div class="container">
+        <h3>My Channels</h3>
+        <div class="list-group" style="padding-top: 20px;">
+            {% for channel in channels %}
+                <a href="{{url_for('channel' , id = channel.id)}}" class="list-group-item list-group-item-action">{{channel.name}}</a>
+            {% endfor %}
+          </div>
+          <hr>
+    </div>
+    <div class="container" style="margin-top: 50px;">
+        <button class="btn btn-dark" type="submit"><a href="{{url_for('create_channel')}}" style="color: aliceblue;"><h6>Create a New Channel</h6></a></button>
+        <button class="btn btn-dark" type="submit"><a href="{{url_for('joinchannel')}}" style="color: aliceblue;"><h6>Join an Existing Channel</h6></a></button>
+    </div>
+
+{% endblock %}

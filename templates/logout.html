@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}
+    Log out
+{% endblock %}
+
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+    <h1 style="margin-left: 5%;">Log Out</h1>
+    <p style="margin-left: 5%;">
+        {{message}}
+    </p>
+    <form class="form" action="{{route_link}}" method="GET">
+        <button class="btn btn-dark" type="submit" name="logout" style="margin-left: 5%;">{{button_name}}</button>
+{% endblock %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Channel {{channel.name}}
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </head>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script id="result" type="text/x-handlebars-template">
+        {% raw %}
+        <a href="#" class="pull-left">
+            <img src="/static/img/{{ pic }}" alt="" class="img-circle">
+        </a>
+        <div class="media-body">
+            <span class="text-muted pull-right">
+                <strong class="text-success">@{{user}}</strong>
+            </span>
+            <small class="text-muted">{{timestamp}}</small>
+            <p>
+                {{msg}}
+            </p>
+        </div>
+        {% endraw %}
+    </script>
+    <script>
+        var namespace = '{{namespace}}';
+        console.log(namespace)
+            // Connect to websocket
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+    socket.on('connect', () => {
+        socket.emit('join', {"namespace": '{{namespace}}'});
+        document.querySelector('#msgform').onsubmit = () => {
+                const msg = document.querySelector('#textbox').value;
+                socket.emit('get message', {'msg': msg, 'namespace':'{{namespace}}', 'channel_id': '{{channel.id}}'});
+                return false;
+        };        
+    });
+
+        const template = Handlebars.compile(document.querySelector('#result').innerHTML);
+        socket.on('send message', data => {
+            const timestamp = (new Date()).toISOString().replace(/z|t/gi,' ');
+            const content = template({'msg': data.msg, 'user': data.user, 'timestamp':timestamp, 'pic':data.pic});
+            //document.querySelector('#votes').append(content);
+            const li = document.createElement('li');
+            li.innerHTML = content;
+            li.className = 'media'
+            document.querySelector("#votes").append(li);
+            document.querySelector('#textbox').value = '';
+        })  
+    </script>
+
+    <body>
+        <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+        <h2 class="h1 heading" style = "margin:5%">Channel - {{channel.name}}</h2>
+        <div style="text-align: right;">
+            <button class="btn btn-dark" type="submit" name="logout" ><a href="{{url_for('myprofile')}}" style="color: aliceblue;">My Profile</a></button>
+            <button class="btn btn-dark" type="submit" name="logout" ><a href="{{url_for('logout')}}" style="color: aliceblue;">Log Out</a></button>
+        </div>
+        
+        <div class="row bootstrap snippets" style= "margin: 5%; text-align: center; padding-left: 250px; ">
+            <div class="col-md-6 col-md-offset-2 col-sm-12" style = "text-align: center; margin-left: 7%">
+                <div class="comment-wrapper">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div class="clearfix"></div>
+                            <hr>
+                            <ul id="votes" class="media-list">
+                                {% for post in posts %}
+                                    <li class='media'>
+                                        <a href="#" class="pull-left">
+                                            <img src="/static/img/{{ post.user.profile_pic }}" alt="" class="img-circle">
+                                        </a>
+                                        <div class="media-body">
+                                            <span class="text-muted pull-right">
+                                                <strong class="text-success">@{{post.user.displayname}}</strong>
+                                            </span>
+                                            <small class="text-muted">{{post.timestamp}}</small>
+                                            <p>
+                                                {{post.post}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <hr>
+                            <form id="msgform">
+                                <textarea id ="textbox" class="form-control" placeholder="write a comment..." rows="3" required></textarea>
+                                <br>
+                                <button id="submitpost" class="btn btn-dark" type="submit">Send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <button class="btn btn-dark" type="submit" style="margin: 4%;"><a href="{{url_for('mychannels')}}" style="color: aliceblue;">My Channels</a></button>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}
+    MyProfile
+{% endblock %}
+{% block body %}
+    <h1 class="heading" style="text-align: center; padding-top:40px">Flack</h1>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                <h5 class="card-title text-center">Profile Details</h5>
+                <form class="form-signin" action= "/myprofile" method="POST" enctype = "multipart/form-data">
+                    <div class="form-label-group" style="text-align: center; margin-top: 25px;">
+                        <img src="/static/img/{{ user.profile_pic }}" style="text-align: center;">
+                    </div>
+
+                    <div class="form-label-group" style="margin-top: 25px;">
+                        <label>Username</label>
+                        <input name = "username" type="text" id="inputEmail" class="form-control" placeholder="Username" style="margin-bottom: 10px;" required value="{{ user.username }}">
+                    </div>
+
+                    <div class="form-label-group" style="margin-top: 10px;">
+                        <label>DisplayName</label>
+                        <input name = "displayname" type="text" id="inputEmail" class="form-control" placeholder="Displayname" style="margin-bottom: 10px;" required value="{{ user.displayname }}">
+                    </div>
+
+                    <div class="form-label-group" style="margin-top: 10px;">
+                        <label>Email Address</label>
+                        <input name = "email" type="text" id="inputEmail" class="form-control" placeholder="Email Address" style="margin-bottom: 10px;" required value="{{ user.email }}">
+                    </div>
+                    <div class="form-label-group" margin-top: 15px;">
+                        <span>
+                            <label>Change Profile Picture</label>
+                            <input type="file" title = "Change Picture" id="profilepic" name="profilepic" accept="image/png, image/jpeg" style="font-size: 12px; text-align: center; display: -webkit-flex; color: transparent">    
+                        </span>
+                    </div>
+
+
+
+                    <button class="btn btn-block btn-dark" type="submit" formmethod="post" style="margin-top: 25px;">Update</button>
+                    <hr class="my-4">                    
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}
